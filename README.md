@@ -1,11 +1,14 @@
 # PBL-Project4
 ## MEAN Stack Implementation
 
-##### Challenges Encountered
+##### Challenges Encountered & Lesson Learnt
 As per the Step 2: Install MongoDB, i tried following the script/steps outlined on Darey.io, but i kept getting error. So i went online, and used the steps on https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/ to cross this hurdle.
 
 ![PBL4_error1](https://user-images.githubusercontent.com/122687798/221477426-0679d8ec-54d7-4a4c-b07c-24128e9d0c38.JPG)
 
+Lesson Learnt...On the security of my EC2 Instances, i had to open below ports and protocols before i could access the node.js server via port 3300 and also launch Putty or SSH console to test what curl command returns locally from a separate terminal log in.
+
+![PBL4_6](https://user-images.githubusercontent.com/122687798/221551962-7329508a-dfa3-4f81-bd47-c861bbb87885.JPG)
 
 ### MEAN STACK DEPLOYMENT TO UBUNTU IN AWS
 
@@ -224,43 +227,60 @@ Add a file named script.js
 
 Copy and paste the Code below (controller configuration defined) into the script.js file.
 
-var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope, $http) {
-  $http( {
-    method: 'GET',
-    url: '/book'
-  }).then(function successCallback(response) {
-    $scope.books = response.data;
-  }, function errorCallback(response) {
-    console.log('Error: ' + response);
-  });
-  $scope.del_book = function(book) {
-    $http( {
-      method: 'DELETE',
-      url: '/book/:isbn',
-      params: {'isbn': book.isbn}
-    }).then(function successCallback(response) {
-      console.log(response);
-    }, function errorCallback(response) {
-      console.log('Error: ' + response);
-    });
-  };
-  $scope.add_book = function() {
-    var body = '{ "name": "' + $scope.Name + 
-    '", "isbn": "' + $scope.Isbn +
-    '", "author": "' + $scope.Author + 
-    '", "pages": "' + $scope.Pages + '" }';
-    $http({
-      method: 'POST',
-      url: '/book',
-      data: body
-    }).then(function successCallback(response) {
-      console.log(response);
-    }, function errorCallback(response) {
-      console.log('Error: ' + response);
-    });
-  };
-});
+https://www.darey.io/docs/step-3-install-express-and-set-up-routes-to-the-server/#:~:text=%3C!doctype%20html%3E%0A%3Chtml,div%3E%0A%20%20%3C/body%3E%0A%3C/html%3E
+
+
+<!doctype html>
+<html ng-app="myApp" ng-controller="myCtrl">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div>
+      <table>
+        <tr>
+          <td>Name:</td>
+          <td><input type="text" ng-model="Name"></td>
+        </tr>
+        <tr>
+          <td>Isbn:</td>
+          <td><input type="text" ng-model="Isbn"></td>
+        </tr>
+        <tr>
+          <td>Author:</td>
+          <td><input type="text" ng-model="Author"></td>
+        </tr>
+        <tr>
+          <td>Pages:</td>
+          <td><input type="number" ng-model="Pages"></td>
+        </tr>
+      </table>
+      <button ng-click="add_book()">Add</button>
+    </div>
+    <hr>
+    <div>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Isbn</th>
+          <th>Author</th>
+          <th>Pages</th>
+
+        </tr>
+        <tr ng-repeat="book in books">
+          <td>{{book.name}}</td>
+          <td>{{book.isbn}}</td>
+          <td>{{book.author}}</td>
+          <td>{{book.pages}}</td>
+
+          <td><input type="button" value="Delete" data-ng-click="del_book(book)"></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
+
 
 
 In public folder, create a file named index.html;
