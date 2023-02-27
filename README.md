@@ -10,6 +10,7 @@ Lesson Learnt...On the security of my EC2 Instances, i had to open below ports a
 
 ![PBL4_6](https://user-images.githubusercontent.com/122687798/221551962-7329508a-dfa3-4f81-bd47-c861bbb87885.JPG)
 
+
 ### MEAN STACK DEPLOYMENT TO UBUNTU IN AWS
 
 So far, I have already learnt how to deploy LAMP, LEMP and MERN Web stacks – it is time to get familiar with MEAN stack and deploy it to Ubuntu server.
